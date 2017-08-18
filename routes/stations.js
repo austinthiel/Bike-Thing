@@ -18,6 +18,18 @@ router.get('/:_id', function(req, res, next) {
   });
 });
 
+/* GET stations given network _id */
+router.get('/network/:network_id', function(req, res, next) {
+  Station.find({"network_id": mongoose.Types.ObjectId(req.params.network_id)}, function(err, station) {
+    if(err) {
+      console.log(err);
+    }
+    else {
+      res.json(station);
+    }
+  });
+});
+
 /* PUT 
   update one or more of the following attributes in station given _id:
   => empty_slots

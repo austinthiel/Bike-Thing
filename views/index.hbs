@@ -18,6 +18,7 @@
       }
     </style>
     <script type='text/javascript' src='https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js'></script>
+    <script src="markerclusterer.js"></script>
   </head>
   <body>
     <div id="map"></div>
@@ -37,7 +38,7 @@
         // Note: The code uses the JavaScript Array.prototype.map() method to
         // create an array of markers based on a given "locations" array.
         // The map() method here has nothing to do with the Google Maps API.
-        var markers = bikeLocations.map(function(location, i) {
+        var markers = networkLocations.map(function(location, i) {
           return new google.maps.Marker({
             position: location,
             label: labels[i % labels.length]
@@ -47,20 +48,21 @@
         // Add a marker clusterer to manage the markers.
         var markerCluster = new MarkerClusterer(map, markers,
             {imagePath: 'https://developers.google.com/maps/documentation/javascript/examples/markerclusterer/m'});
+
+
       }
-      var networks = [];
+      var networkLocations = [];
 	  $.ajax({
 	      dataType: 'json',
-	      data: $('#formID').serialize(),
 	      type: 'GET',
 	      url: "http://localhost:3001/networks",
 	      success: function (data) {
-	        // console.log('success', data);
+	        console.log('success', data);
 	        for (var i in data) {
 			  var item = data[i];
 			  // console.log(item['latitude']);
 			  // console.log(item['longitude']);
-			  networks.push(item["_id"]);
+			  networkLocations.push({'lat':item['location']['latitude'], 'lng':item['location']['longitude']});
 
 			}
 	      },
@@ -69,40 +71,38 @@
 	        console.log('error', errorThrown);
 	      }
 	    });
-	  // console.log(networks);
+	  console.log(networkLocations);
 
 
+  //     var bikeLocations = []
+  //     // 5993a2be0d43ff1e8c7f72e0 doesnt show any markers wtf? --> google maps shows this should appear abu dhabi
+  //     for (var i in networks){
+  //     	// console.log(networks[i]);
+		//   $.ajax({
+		//       dataType: 'json',
+		//       type: 'GET',
+		//       url: "http://localhost:3001/stations/network/" + networks[i],
+		//       success: function (data) {
+		//         // console.log('success', data);
+		//         for (var i in data) {
+		// 		  var item = data[i];
+		// 		  // console.log(item['latitude']);
+		// 		  // console.log(item['longitude']);
+		// 		  bikeLocations.push({'lat':item['latitude'], 'lng':item['longitude']});
 
-      var bikeLocations = []
-      // 5993a2be0d43ff1e8c7f72e0 doesnt show any markers wtf? --> google maps shows this should appear abu dhabi
-      for (var i in networks){
-      	// console.log(networks[i]);
-		  $.ajax({
-		      dataType: 'json',
-		      data: $('#formID').serialize(),
-		      type: 'GET',
-		      url: "http://localhost:3001/stations/network/" + networks[i],
-		      success: function (data) {
-		        // console.log('success', data);
-		        for (var i in data) {
-				  var item = data[i];
-				  // console.log(item['latitude']);
-				  // console.log(item['longitude']);
-				  bikeLocations.push({'lat':item['latitude'], 'lng':item['longitude']});
-
-				}
-		      },
-		      error: function (XMLHttpRequest, textStatus, errorThrown) {
-		        console.log('error', errorThrown);
-		      }
-		    });
-		}
+		// 		}
+		//       },
+		//       error: function (XMLHttpRequest, textStatus, errorThrown) {
+		//         console.log('error', errorThrown);
+		//       }
+		//     });
+		// }
 	  // console.log(bikeLocations);
     </script>
     <script src="https://developers.google.com/maps/documentation/javascript/examples/markerclusterer/markerclusterer.js">
     </script>
     <script async defer
-    src="https://maps.googleapis.com/maps/api/js?key=APIKEYGOESHERE&callback=initMap">
+    src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAOKEyFUk7xfq8ugt15WczWs03PVgIxGWs&callback=initMap">
     </script>
   </body>
 </html>

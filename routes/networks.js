@@ -1,31 +1,49 @@
-var express = require('express');
-var router = express.Router();
+const express = require('express');
+const mongoose = require('mongoose');
 
-var mongoose = require('mongoose');
-var Network = mongoose.model('Network');
-var Station = mongoose.model('Station');
-var Review = mongoose.model('Review');
+const router = express.Router();
+const Network = mongoose.model('Network');
 
 /* GET all networks. */
-router.get('/', function(req, res, next) {
-  Network.find({}, function(err, networks) {
-    if(err) {
-      console.log(err);
-    }
-    else {
-      res.json(networks);
+router.get('/', (req, res) => {
+  Network.find({}, (err, networks) => {
+    if (err) {
+      res.json({
+        status: 'ERROR',
+        result: err,
+      });
+    } else if (!networks) {
+      res.json({
+        status: 'ERROR',
+        result: 'No networks found',
+      });
+    } else {
+      res.json({
+        status: 'OK',
+        result: networks,
+      });
     }
   });
 });
 
 /* GET one network given _id. */
-router.get('/:_id', function(req, res, next) {
-  Network.findById(mongoose.Types.ObjectId(req.params._id), function(err, network) {
-    if(err) {
-      console.log(err);
-    }
-    else {
-      res.json(network);
+router.get('/:id', (req, res) => {
+  Network.findById(mongoose.Types.ObjectId(req.params.id), (err, network) => {
+    if (err) {
+      res.json({
+        status: 'ERROR',
+        result: err,
+      });
+    } else if (!network) {
+      res.json({
+        status: 'ERROR',
+        result: 'No network exists under that ID',
+      });
+    } else {
+      res.json({
+        status: 'OK',
+        result: network,
+      });
     }
   });
 });

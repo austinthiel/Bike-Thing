@@ -3,3 +3,11 @@ node_js:
  - '8'
 after_success:
  - './node_modules/.bin/nyc report --reporter=text-lcov | ./node_modules/.bin/coveralls'
+services:
+ - mongodb
+packages:
+ addons:
+  apt:
+   - mongodb-org-tools
+before_script:
+ - mongorestore -d dbName ./mongoDump/dbName

@@ -4,25 +4,15 @@
   "private": true,
   "scripts": {
     "start": "node ./bin/www",
-    "test": "istanbul cover _mocha",
-    "precommit": "lint-staged"
-  },
-  "lint-staged": {
-    "*.js": [
-      "prettier --write",
-      "git add"
-    ]
+    "test": "NODE_ENV=testing istanbul cover _mocha"
   },
   "dependencies": {
     "body-parser": "~1.16.0",
-    "chai": "^4.1.1",
     "cookie-parser": "~1.4.3",
     "debug": "~2.6.0",
     "express": "~4.14.1",
     "hbs": "~4.0.1",
-    "istanbul": "^0.4.5",
     "lodash": "^4.17.4",
-    "mongoose": "^4.11.7",
     "morgan": "~1.7.0",
     "package.json": "^2.0.1",
     "request": "^2.81.0",
@@ -30,14 +20,14 @@
   },
   "devDependencies": {
     "ava": "^0.22.0",
+    "chai": "^4.1.1",
     "coveralls": "^2.13.1",
-    "husky": "^0.14.3",
-    "lint-staged": "^4.0.3",
+    "istanbul": "^0.4.5",
     "log4js": "^2.3.3",
     "mocha": "^3.5.0",
     "mongoose": "^4.11.7",
-    "nyc": "^11.1.0",
     "prettier": "^1.5.3",
+    "should": "^11.2.1",
     "supertest": "^3.0.0"
   }
 }

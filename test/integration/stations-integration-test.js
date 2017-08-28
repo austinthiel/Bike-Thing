@@ -18,8 +18,8 @@ describe("integration -- /stations/:_id route", () => {
     latitude: 24.537567,
     longitude: 54.42835099999999,
     name: "St. Regis",
-    isClosed: true,
-    isSafe: true,
+    is_closed: true,
+    is_safe: true,
     network_id: "5993a2be0d43ff1e8c7f72e0"
   };
 
@@ -50,40 +50,40 @@ describe("integration -- /stations/:_id route", () => {
       .end(done);
   });
 
-  it("PUT a station with valid isClosed and return its updated JSON", done => {
+  it("PUT a station with valid is_closed and return its updated JSON", done => {
     request
       .put("/stations/" + station._id)
-      .send({ isClosed: false })
+      .send({ is_closed: false })
       .expect(function(res) {
-        expect(res.body.isClosed).to.be.equal(false);
+        expect(res.body.is_closed).to.be.equal(false);
       })
       .expect(200)
       .end(done);
   });
 
-  it("PUT a station with invalid isClosed and return a 500 error", done => {
+  it("PUT a station with invalid is_closed and return a 500 error", done => {
     request
       .put("/stations/" + station._id)
-      .send({ isClosed: 1 })
+      .send({ is_closed: 1 })
       .expect(500)
       .end(done);
   });
 
-  it("PUT a station with valid isSafe and return its updated JSON", done => {
+  it("PUT a station with valid is_safe and return its updated JSON", done => {
     request
       .put("/stations/" + station._id)
-      .send({ isSafe: false })
+      .send({ is_safe: false })
       .expect(function(res) {
-        expect(res.body.isSafe).to.be.equal(false);
+        expect(res.body.is_safe).to.be.equal(false);
       })
       .expect(200)
       .end(done);
   });
 
-  it("PUT a station with invalid isSafe and return a 500 error", done => {
+  it("PUT a station with invalid is_safe and return a 500 error", done => {
     request
       .put("/stations/" + station._id)
-      .send({ isSafe: 1 })
+      .send({ is_safe: 1 })
       .expect(500)
       .end(done);
   });

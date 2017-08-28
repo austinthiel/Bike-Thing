@@ -33,8 +33,8 @@ describe("unit /stations/:_id route", () => {
       latitude: 24.537567,
       longitude: 54.42835099999999,
       name: "St. Regis",
-      isClosed: true,
-      isSafe: true,
+      is_closed: true,
+      is_safe: true,
       network_id: "5993a2be0d43ff1e8c7f72e0"
     };
 

@@ -23,8 +23,8 @@ router.get("/:_id", function(req, res, next) {
 /* PUT 
   update one or more of the following attributes in station given _id:
   => empty_slots
-  => isClosed
-  => isSafe
+  => is_closed
+  => is_safe
 */
 router.put("/:_id", function(req, res, next) {
   Station.findById(mongoose.Types.ObjectId(req.params._id), function(
@@ -34,9 +34,9 @@ router.put("/:_id", function(req, res, next) {
     if (
       err ||
       req.body.empty_slots < 0 ||
-      (typeof req.body.isClosed !== "boolean" &&
-        req.body.isClosed !== undefined) ||
-      (typeof req.body.isSafe !== "boolean" && req.body.isSafe !== undefined)
+      (typeof req.body.is_closed !== "boolean" &&
+        req.body.is_closed !== undefined) ||
+      (typeof req.body.is_safe !== "boolean" && req.body.is_safe !== undefined)
     ) {
       res.status(500).send(err);
     } else {
@@ -45,15 +45,15 @@ router.put("/:_id", function(req, res, next) {
       } else {
         station.empty_slots = req.body.empty_slots;
       }
-      if (req.body.isClosed === undefined) {
-        station.isClosed = station.isClosed;
+      if (req.body.is_closed === undefined) {
+        station.is_closed = station.is_closed;
       } else {
-        station.isClosed = req.body.isClosed;
+        station.is_closed = req.body.is_closed;
       }
-      if (req.body.isSafe === undefined) {
-        station.isSafe = station.isSafe;
+      if (req.body.is_safe === undefined) {
+        station.is_safe = station.is_safe;
       } else {
-        station.isSafe = req.body.isSafe;
+        station.is_safe = req.body.is_safe;
       }
 
       station.save((err, station) => {

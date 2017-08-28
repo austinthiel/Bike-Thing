@@ -34,11 +34,11 @@ var stationSchema = new Schema({
         type: mongoose.Schema.Types.ObjectId,
         required: true
     },
-    isClosed: {
+    is_closed: {
         type: Boolean,
         required: true
     },
-    isSafe: {
+    is_safe: {
         type: Boolean,
         required: true
     }
